@@ -81,6 +81,63 @@ if (magicJS.read(blackKey)) {
           magicJS.logError(`开屏广告处理出现异常：${err}`);
         }
         break;
+        // 标签页处理，如去除会员购等等
+      case /^https?:\/\/app\.bilibili\.com\/x\/resource\/show\/tab/.test(magicJS.request.url):
+        try {
+          // 442 开始为概念版id 适配港澳台代理模式
+          const tabList = new Set([39, 40, 774, 857, 545, 151, 442, 99, 100, 101, 554, 556]);
+          // 107 概念版游戏中心，获取修改为Story模式
+          const topList = new Set([176, 107]);
+          // 102 开始为概念版id
+          const bottomList = new Set([177, 178, 179, 181, 102,  104, 106, 486, 488, 489]);
+          let obj = JSON.parse(magicJS.response.body);
+          if (obj["data"]["tab"]) {
+            let tab = obj["data"]["tab"].filter((e) => {
+              return tabList.has(e.id);
+            });
+            obj["data"]["tab"] = tab;
+          }
+          // 将 id（222 & 107）调整为Story功能按钮
+          let storyAid = magicJS.read(storyAidKey);
+          if (!storyAid) {
+            storyAid = "246834163";
+          }
+          if (obj["data"]["top"]) {
+            let top = obj["data"]["top"].filter((e) => {
+              if (e.id === 222 || e.id === 107) {
+                e.uri = `bilibili://story/${storyAid}`;
+                e.icon = "https://raw.githubusercontent.com/blackmatrix7/ios_rule_script/master/script/bilibili/bilibili_icon.png";
+                e.tab_id = "Story_Top";
+                e.name = "Story";
+              }
+              return topList.has(e.id);
+            });
+            obj["data"]["top"] = top;
+          }
+          if (obj["data"]["bottom"]) {
+            let bottom = obj["data"]["bottom"].filter((e) => {
+              return bottomList.has(e.id);
+            });
+            obj["data"]["bottom"] = bottom;
+          }
+          body = JSON.stringify(obj);
+        } catch (err) {
+          magicJS.logError(`标签页处理出现异常：${err}`);
+        }
+        break;
+      // 我的页面处理，去除一些推广按钮
+      case /^https?:\/\/app\.bilibili\.com\/x\/v2\/account\/mine/.test(magicJS.request.url):
+        try {
+          let obj = JSON.parse(magicJS.response.body);
+          // 622 为会员购中心, 425 开始为概念版id
+          //const itemList = new Set([396, 397, 398, 399, 171, 402, 404, 544, 407, 410]);
+          const itemList = new Set([396, 397, 398, 399, 402, 404, 407, 410]);
+          obj["data"]["sections_v2"].forEach((element, index) => {
+            element["items"].forEach((e) => {
+              if (e["id"] === 622) {
+                e["title"] = "会员购";
+                e["uri"] = "bilibili://mall/home";
+            });
       // 直播去广告
       case /^https?:\/\/api\.live\.bilibili\.com\/xlive\/app-room\/v1\/index\/getInfoByRoom/.test(magicJS.request.url):
         try {
