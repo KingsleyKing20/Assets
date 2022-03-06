@@ -35,13 +35,8 @@ body['data']['sections_v2'] = [
       }
     },
     {
-      "title": "创作中心",
-      "items": [
-        {
-          "need_login": 1,
-          "display": 1,
           "id": 171,
-          "title": "创作首页",
+          "title": "创作中心",
           "global_red_dot": 1,
           "uri": "bilibili://uper/homevc",
           "icon": "http://i0.hdslb.com/bfs/archive/d3aad2d07538d2d43805f1fa14a412d7a45cc861.png"
