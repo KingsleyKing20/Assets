@@ -132,42 +132,6 @@ if (magicJS.read(blackKey)) {
           magicJS.logError(`标签页处理出现异常：${err}`);
         }
         break;
-      // 我的页面处理，去除一些推广按钮
-      case /^https?:\/\/app\.bilibili\.com\/x\/v2\/account\/mine/.test(magicJS.request.url):
-        try {
-          let obj = JSON.parse(magicJS.response.body);
-          // 622 为会员购中心, 425 开始为概念版id
-          //const itemList = new Set([396, 397, 398, 399, 171, 402, 404, 544, 407, 410]);
-          const itemList = new Set([396, 397, 398, 399, 402, 404, 407, 410]);
-          obj["data"]["sections_v2"].forEach((element, index) => {
-            element["items"].forEach((e) => {
-              if (e["id"] === 622) {
-                e["title"] = "会员购";
-                e["uri"] = "bilibili://mall/home";
-              }
-            });
-            let items = element["items"].filter((e) => {
-              return itemList.has(e.id);
-            });
-            obj["data"]["sections_v2"][index].button = {};
-            delete obj["data"]["sections_v2"][index].be_up_title;
-            delete obj["data"]["sections_v2"][index].tip_icon;
-            delete obj["data"]["sections_v2"][index].tip_title; 
-            delete obj.data.vip_section_v2;
-            delete obj.data.vip_section;
-            obj["data"]["sections_v2"][index]["items"] = items;
-            //2022-03-05 add by ddgksf2013
-            obj["data"]["vip_type"] = 2;
-            obj["data"]["vip"]["type"] = 2;
-            obj["data"]["vip"]["status"] = 1;
-            obj["data"]["vip"]["vip_pay_type"] = 1;
-            obj["data"]["vip"]["due_date"] = 4669824160;
-          });
-          body = JSON.stringify(obj);
-        } catch (err) {
-          magicJS.logError(`我的页面处理出现异常：${err}`);
-        }
-        break;
       // 直播去广告
       case /^https?:\/\/api\.live\.bilibili\.com\/xlive\/app-room\/v1\/index\/getInfoByRoom/.test(magicJS.request.url):
         try {
