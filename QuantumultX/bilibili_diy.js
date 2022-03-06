@@ -1,10 +1,3 @@
-/*
-應用名稱：自用B站去广告脚本
-腳本作者：Cuttlefish
-微信賬號：公眾號墨魚手記
-更新時間：2022-03-05
-通知頻道：https://t.me/ddgksf2021
-問題反饋：https://t.me/ddgksf2013_bot
 */
 const scriptName = "BiliBili";
 const storyAidKey = "bilibili_story_aid";
@@ -86,50 +79,6 @@ if (magicJS.read(blackKey)) {
           body = JSON.stringify(obj);
         } catch (err) {
           magicJS.logError(`开屏广告处理出现异常：${err}`);
-        }
-        break;
-      // 标签页处理，如去除会员购等等
-      case /^https?:\/\/app\.bilibili\.com\/x\/resource\/show\/tab/.test(magicJS.request.url):
-        try {
-          // 442 开始为概念版id 适配港澳台代理模式
-          const tabList = new Set([39, 40, 774, 857, 545, 151, 442, 99, 100, 101, 554, 556]);
-          // 107 概念版游戏中心，获取修改为Story模式
-          const topList = new Set([176, 107]);
-          // 102 开始为概念版id
-          const bottomList = new Set([177, 178, 179, 181, 102,  104, 106, 486, 488, 489]);
-          let obj = JSON.parse(magicJS.response.body);
-          if (obj["data"]["tab"]) {
-            let tab = obj["data"]["tab"].filter((e) => {
-              return tabList.has(e.id);
-            });
-            obj["data"]["tab"] = tab;
-          }
-          // 将 id（222 & 107）调整为Story功能按钮
-          let storyAid = magicJS.read(storyAidKey);
-          if (!storyAid) {
-            storyAid = "246834163";
-          }
-          if (obj["data"]["top"]) {
-            let top = obj["data"]["top"].filter((e) => {
-              if (e.id === 222 || e.id === 107) {
-                e.uri = `bilibili://story/${storyAid}`;
-                e.icon = "https://raw.githubusercontent.com/blackmatrix7/ios_rule_script/master/script/bilibili/bilibili_icon.png";
-                e.tab_id = "Story_Top";
-                e.name = "Story";
-              }
-              return topList.has(e.id);
-            });
-            obj["data"]["top"] = top;
-          }
-          if (obj["data"]["bottom"]) {
-            let bottom = obj["data"]["bottom"].filter((e) => {
-              return bottomList.has(e.id);
-            });
-            obj["data"]["bottom"] = bottom;
-          }
-          body = JSON.stringify(obj);
-        } catch (err) {
-          magicJS.logError(`标签页处理出现异常：${err}`);
         }
         break;
       // 直播去广告
