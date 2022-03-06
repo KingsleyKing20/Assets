@@ -81,7 +81,7 @@ if (magicJS.read(blackKey)) {
           magicJS.logError(`开屏广告处理出现异常：${err}`);
         }
         break;
-      // 标签页处理，如去除会员购等等
+        // 标签页处理，如去除会员购等等
       case /^https?:\/\/app\.bilibili\.com\/x\/resource\/show\/tab/.test(magicJS.request.url):
         try {
           // 442 开始为概念版id 适配港澳台代理模式
@@ -137,12 +137,24 @@ if (magicJS.read(blackKey)) {
               if (e["id"] === 622) {
                 e["title"] = "会员购";
                 e["uri"] = "bilibili://mall/home";
-              }
             });
-        } catch (err) {
-          magicJS.logError(`我的页面处理出现异常：${err}`);
-        }
-        break;
+          "id": 171,
+          "title": "创作中心",
+          "global_red_dot": 1,
+          "uri": "bilibili://uper/homevc",
+          "icon": "http://i0.hdslb.com/bfs/archive/d3aad2d07538d2d43805f1fa14a412d7a45cc861.png"
+        },
+      ],
+      "style": 1,
+      "button": {
+        "icon": "http://i0.hdslb.com/bfs/archive/205f47675eaaca7912111e0e9b1ac94cb985901f.png",
+        "style": 1,
+        "url": "bilibili://uper/user_center/archive_selection",
+        "text": "发布"
+      }
+    },
+    
+    {
       // 直播去广告
       case /^https?:\/\/api\.live\.bilibili\.com\/xlive\/app-room\/v1\/index\/getInfoByRoom/.test(magicJS.request.url):
         try {
@@ -164,19 +176,6 @@ if (magicJS.read(blackKey)) {
           body = JSON.stringify(obj);
         } catch (err) {
           magicJS.logError(`热搜去广告出现异常：${err}`);
-        }
-        break;
-        //2022-03-05 add by ddgksf2013
-        case /https?:\/\/app\.bilibili\.com\/x\/v2\/account\/myinfo\?/.test(magicJS.request.url):
-        try {
-          let obj = JSON.parse(magicJS.response.body);
-          obj["data"]["vip"]["type"] = 2;
-          obj["data"]["vip"]["status"] = 1;
-          obj["data"]["vip"]["vip_pay_type"] = 1;
-          obj["data"]["vip"]["due_date"] = 4669824160;
-          body = JSON.stringify(obj);
-        } catch (err) {
-          magicJS.logError(`1080P出现异常：${err}`);
         }
         break;
       // 追番去广告
