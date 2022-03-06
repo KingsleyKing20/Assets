@@ -139,24 +139,6 @@ if (magicJS.read(blackKey)) {
                 e["uri"] = "bilibili://mall/home";
               }
             });
-            let items = element["items"].filter((e) => {
-              return itemList.has(e.id);
-            });
-            obj["data"]["sections_v2"][index].button = {};
-            delete obj["data"]["sections_v2"][index].be_up_title;
-            delete obj["data"]["sections_v2"][index].tip_icon;
-            delete obj["data"]["sections_v2"][index].tip_title;
-            delete obj.data.vip_section_v2;
-            delete obj.data.vip_section;
-            obj["data"]["sections_v2"][index]["items"] = items;
-            //2022-03-05 add by ddgksf2013
-            obj["data"]["vip_type"] = 2;
-            obj["data"]["vip"]["type"] = 2;
-            obj["data"]["vip"]["status"] = 1;
-            obj["data"]["vip"]["vip_pay_type"] = 1;
-            obj["data"]["vip"]["due_date"] = 4669824160;
-          });
-          body = JSON.stringify(obj);
         } catch (err) {
           magicJS.logError(`我的页面处理出现异常：${err}`);
         }
