@@ -1,4 +1,3 @@
-*/
 const scriptName = "BiliBili";
 const storyAidKey = "bilibili_story_aid";
 const blackKey = "bilibili_feed_black";
@@ -42,7 +41,7 @@ if (magicJS.read(blackKey)) {
               !item.hasOwnProperty("ad_info") &&
               !blacklist.includes(item["args"]["up_name"]) &&
               item.card_goto.indexOf("ad") === -1 &&
-              (item["card_type"] === "small_cover_v2" || item["card_type"] === "large_cover_v1"|| item["card_type"] === "large_cover_single_v9")
+              (item["card_type"] === "small_cover_v2" || item["card_type"] === "large_cover_v1")
             ) {
               items.push(item);
             }
@@ -81,19 +80,21 @@ if (magicJS.read(blackKey)) {
           magicJS.logError(`开屏广告处理出现异常：${err}`);
         }
         break;
-        // 标签页处理，如去除会员购等等
+      // 标签页处理，如去除会员购等等
       case /^https?:\/\/app\.bilibili\.com\/x\/resource\/show\/tab/.test(magicJS.request.url):
         try {
-          // 442 开始为概念版id 适配港澳台代理模式
-          const tabList = new Set([39, 40, 774, 857, 545, 151, 442, 99, 100, 101, 554, 556]);
+          // 545 首页追番tab，442 开始为概念版id 适配港澳台代理模式
+          const tabList = new Set([39, 40, 41, 545, 151, 442, 99, 100, 101, 554, 556]);
+          // 尝试使用tab name直观修改
+          const tabNameList = new Set(["直播", "推荐", "热门", "追番", "影视"]);
           // 107 概念版游戏中心，获取修改为Story模式
-          const topList = new Set([176, 107]);
+          const topList = new Set([176, 222, 107]);
           // 102 开始为概念版id
-          const bottomList = new Set([177, 178, 179, 181, 102,  104, 106, 486, 488, 489]);
+          const bottomList = new Set([177, 178, 179, 181, 102, 103, 104, 105, 106]);
           let obj = JSON.parse(magicJS.response.body);
           if (obj["data"]["tab"]) {
             let tab = obj["data"]["tab"].filter((e) => {
-              return tabList.has(e.id);
+              return tabNameList.has(e.name);
             });
             obj["data"]["tab"] = tab;
           }
@@ -130,31 +131,28 @@ if (magicJS.read(blackKey)) {
         try {
           let obj = JSON.parse(magicJS.response.body);
           // 622 为会员购中心, 425 开始为概念版id
-          //const itemList = new Set([396, 397, 398, 399, 171, 402, 404, 544, 407, 410]);
-          const itemList = new Set([396, 397, 398, 399, 402, 404, 407, 410]);
+          const itemList = new Set([396, 397, 398, 399, 171, 172, 534, 8, 4, 428, 352, 1, 405, 402, 404, 544, 407, 410, 622, 425, 426, 427, 428, 171, 430, 431, 432]);
           obj["data"]["sections_v2"].forEach((element, index) => {
             element["items"].forEach((e) => {
               if (e["id"] === 622) {
                 e["title"] = "会员购";
                 e["uri"] = "bilibili://mall/home";
+              }
             });
-          "id": 171,
-          "title": "创作中心",
-          "global_red_dot": 1,
-          "uri": "bilibili://uper/homevc",
-          "icon": "http://i0.hdslb.com/bfs/archive/d3aad2d07538d2d43805f1fa14a412d7a45cc861.png"
-        },
-      ],
-      "style": 1,
-      "button": {
-        "icon": "http://i0.hdslb.com/bfs/archive/205f47675eaaca7912111e0e9b1ac94cb985901f.png",
-        "style": 1,
-        "url": "bilibili://uper/user_center/archive_selection",
-        "text": "发布"
-      }
-    },
-    
-    {
+            let items = element["items"].filter((e) => {
+              return itemList.has(e.id);
+            });
+            obj["data"]["sections_v2"][index].button = {};
+            delete obj["data"]["sections_v2"][index].be_up_title;
+            delete obj["data"]["sections_v2"][index].tip_icon;
+            delete obj["data"]["sections_v2"][index].tip_title;
+            obj["data"]["sections_v2"][index]["items"] = items;
+          });
+          body = JSON.stringify(obj);
+        } catch (err) {
+          magicJS.logError(`我的页面处理出现异常：${err}`);
+        }
+        break;
       // 直播去广告
       case /^https?:\/\/api\.live\.bilibili\.com\/xlive\/app-room\/v1\/index\/getInfoByRoom/.test(magicJS.request.url):
         try {
@@ -165,28 +163,17 @@ if (magicJS.read(blackKey)) {
           magicJS.logError(`直播去广告出现异常：${err}`);
         }
         break;
-        //屏蔽热搜
-        case /^https?:\/\/app\.bilibili\.com\/x\/v2\/search\/square/.test(magicJS.request.url):
-        try {
-          let obj = JSON.parse(magicJS.response.body);
-          if(obj.data.length>3){
-          delete obj.data[0];
-          delete obj.data[3];
-          }
-          body = JSON.stringify(obj);
-        } catch (err) {
-          magicJS.logError(`热搜去广告出现异常：${err}`);
-        }
-        break;
       // 追番去广告
       case /^https?:\/\/api\.bilibili\.com\/pgc\/page\/bangumi/.test(magicJS.request.url):
         try {
-          //let obj = JSON.parse(magicJS.response.body);
-          //for (let card of obj.data.cards) {
-            //delete card["extra"];
-          //}
-          //delete obj["data"]["attentions"];
-          //body = JSON.stringify(obj);
+          let obj = JSON.parse(magicJS.response.body);
+          obj.result.modules.forEach((module) => {
+            // 头部banner
+            if (module.style.startsWith("banner")) {
+              module.items = module.items.filter((i) => !(i.source_content && i.source_content.ad_content));
+            }
+          });
+          body = JSON.stringify(obj);
         } catch (err) {
           magicJS.logError(`追番去广告出现异常：${err}`);
         }
@@ -217,8 +204,7 @@ if (magicJS.read(blackKey)) {
         try {
           let obj = JSON.parse(magicJS.response.body);
           if (obj && obj.hasOwnProperty("data")) {
-            //obj["data"]["common_equip"] = {};
-            obj["data"]["common_equip"]["package_url"] = "";
+            obj["data"]["common_equip"] = {};
           }
           body = JSON.stringify(obj);
         } catch (err) {
