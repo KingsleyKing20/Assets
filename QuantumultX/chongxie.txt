@@ -1819,7 +1819,7 @@ https?:\/\/api\.lightricks\.com\/subscription\?bundle=com\.lightricks\.Enlight-V
 # > 084 Wink解鎖會員權限（2022-03-04）@ddgksf2013
 https?:\/\/api-sub\.meitu\.com\/v\d\/user\/vip_info\.json url script-response-body https://gitee.com/a28413761/QX/raw/master/jiesuo/wink.js
 # > 083 一甜相機解鎖會員權限（2022-02-27）@ddgksf2013
-https?:\/\/m2u-api\.getkwai\.com\/api-server\/api\/v\d\/vip\/vipUserInfo url script-response-body https://raw.githubusercontent.com/LiangYi520/QuantumultX-Script/main/ytxj.js
+https?:\/\/m2u-api\.getkwai\.com\/api-server\/api\/v\d\/vip\/vipUserInfo url script-response-body https://gitee.com/a28413761/QX/raw/master/jiesuo/yitianxiangji.js
 # > 082 傲軟摳圖解鎖會員權限（2022-02-25）@ddgksf2013
 https?:\/\/gw\.aoscdn\.com\/base\/vip\/client\/authorizations$ url script-response-body https://gitee.com/a28413761/QX/raw/master/jiesuo/apowersoft.js
 # > 081 布丁鎖屏解鎖會員權限（2022-02-21）@ddgksf2013
