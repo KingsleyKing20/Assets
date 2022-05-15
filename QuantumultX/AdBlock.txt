@@ -724,6 +724,7 @@ https?:\/\/t7z\.cupid\.iqiyi\.com\/show url reject
 ^https?:\/\/adse\.ximalaya\.com\/ting\/feed\?appid= url reject-img
 ^https?:\/\/adse\.ximalaya\.com\/ting\/loading\?appid= url reject-img
 ^https?:\/\/adse\.ximalaya\.com\/ting\?appid= url reject-img
+
 # 喜马拉雅
 ^https:\/\/adse.+.com\/[a-z]{4}\/loading\?appid= url reject
 ^https:\/\/adse.ximalaya.com\/ting\/feed\?appid= url reject
