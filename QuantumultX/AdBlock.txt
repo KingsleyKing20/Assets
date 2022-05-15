@@ -266,22 +266,7 @@ http:\/\/analytics\.163\.com\/ntes url reject
 ^http?:\/\/business\.msstatic\.com\/advertiser\/material url reject
 # > 熊猫直播
 ^https?:\/\/static\.api\.m\.panda\.tv\/index\.php\?method=clientconf\.firstscreen&__version=(play_cnmb|(\d+\.){0,3}\d+)&__plat=ios&__channel=appstore url reject-img
-# > 抖音去广告, 去水印
 
-^https?:\/\/.*\.(snssdk\.com|musical\.ly|amemv\.com|byteoversea\.com|tiktokv\.com)\/(vapp\/inner_ad|log|location)\/ url reject
-^https?:\/\/x?log.*\.(snssdk\.com|musical\.ly|amemv\.com|byteoversea\.com|tiktokv\.com)\/ url reject
-^https?:\/\/api\d?\.musical\.ly\/api\/ad\/ url reject-img
-^https?:\/\/.+?\.(musical|snssdk)\.(com|ly)\/(api|motor)\/ad\/ url reject
-
-^https?:\/\/.+?\.(musical|snssdk|tiktokv)\.(com|ly)\/(api|motor)\/ad\/ url reject-200
-^https?:\/\/.+\.musical\.ly\/.+stats url reject-img
-^https?:\/\/.+\.musical\.ly\/api\/ad url reject-img
-^https?:\/\/(api.*\.amemv|aweme\.snssdk)\.com\/api\/ad\/ url reject
-^https?:\/\/aweme\.snssdk\.com\/aweme\/v1\/aweme\/stats\/ url reject-img
-^https?:\/\/aweme\.snssdk\.com\/aweme\/v1\/device\/update\/ url reject-img
-^https?:\/\/aweme\.snssdk\.com\/aweme\/v1\/screen\/ad\/ url reject-img
-^https?:\/\/aweme\.snssdk\.com\/service\/1\/app_logout\/ url reject-img
-^https?:\/\/aweme\.snssdk\.com\/service\/2\/app_log url reject-img
 # > 百度地图
 ^https:\/\/dss0.bdstatic.com\/-0U0bnSm1A5BphGlnYG\/ url reject-200
 ^https:\/\/dss0\.bdstatic\.com\/.+/tam-ogel\/.+\.jpg url reject
