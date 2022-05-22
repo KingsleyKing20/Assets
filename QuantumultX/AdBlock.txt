@@ -4,7 +4,6 @@
 # > "reject-img" 策略返回 HTTP 状态码 200，同时附带 1px gif
 # > "reject-dict" 策略返回 HTTP 状态码 200，同时附带一个空的 JSON 对象
 # > "reject-array" 策略返回 HTTP 状态码 200，同时附带一个空的 JSON 数组
-
 # > 云闪付（默认关闭）
 # > ^https:\/\/wallet\.95516\.com\/s\/wl\/icon\/long url reject
 # > ^https?+:\/\/(tysdk|ads)\.95516\.com url reject-dict
