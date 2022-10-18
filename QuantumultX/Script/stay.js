@@ -5,7 +5,7 @@
 [rewrite_local]
 
 # ～ Stay（2022-10-17）
-^https?:\/\/api\.shenyin\.name\/stay-fork\/browse\/featured$ url script-response-body https://github.com/KingsleyKing/Cuttlefish/raw/master/Script/stay.js
+^https?:\/\/api\.shenyin\.name\/stay-fork\/browse\/featured$ url script-response-body https://raw.githubusercontent.com/KingsleyKing20/Assets/master/QuantumultX/Script/stay.js
 
 [mitm]
 
