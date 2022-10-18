@@ -28,7 +28,7 @@ const vip = '/userInfo';
 
 if (url.indexOf(vip) != -1) {
     obj.data.level = 1;
-    obj.data.expireTime = "2999-09-12T23:50:23+08:00";
+    obj.data.expireTime = "2099-09-12T23:50:23+08:00";
     obj.data.nickName = "KingsleyKing";
     obj.data.thirdNickName = "KingsleyKing";
     obj.data.isExpire = false;
