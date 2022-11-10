@@ -15,11 +15,11 @@ QuantumultX 本地脚本配置:
 
 [task_local]
 # 贴吧签到
-0 9 * * * Tieba-GetCookie.js
+0 9 * * * https://raw.githubusercontent.com/KingsleyKing20/Assets/master/QuantumultX/Script/Tieba-GetCookie.js
 
 [rewrite_local]
 # 获取Cookie
-https?:\/\/(tiebac\.baidu\.com|180\.97\.\d+\.\d+)\/c\/s\/login url script-request-header Tieba-GetCookie.js
+https?:\/\/(tiebac\.baidu\.com|180\.97\.\d+\.\d+)\/c\/s\/login url script-request-header https://raw.githubusercontent.com/KingsleyKing20/Assets/master/QuantumultX/Script/Tieba-GetCookie.js
 
 [mitm] 
 hostname= tiebac.baidu.com
