@@ -25,11 +25,11 @@ Surge 脚本配置:
 ************************
 
 [Script]
-B站每日等级任务 = type=cron,cronexp=30 8 * * *,script-path=https://raw.githubusercontent.com/ClydeTime/Quantumult/main/Script/Task/BiliBili.js
+B站每日等级任务 = type=cron,cronexp=30 8 * * *,script-path=https://raw.githubusercontent.com/KingsleyKing20/Assets/master/QuantumultX/Script/BiliBili-GetCookie.js
 
 #以下cookie获取方式二选其一即可
-B站获取Cookie(APP) = type=http-request,pattern=^https:\/\/app\.bilibili\.com\/x\/resource\/domain\?,script-path=https://raw.githubusercontent.com/ClydeTime/Quantumult/main/Script/Task/BiliBili.js
-B站获取Cookie(网页) = type=http-request,pattern=^https:\/\/m.bilibili.com/$,script-path=https://raw.githubusercontent.com/ClydeTime/Quantumult/main/Script/Task/BiliBili.js
+B站获取Cookie(APP) = type=http-request,pattern=^https:\/\/app\.bilibili\.com\/x\/resource\/domain\?,script-path=https://raw.githubusercontent.com/KingsleyKing20/Assets/master/QuantumultX/Script/BiliBili-GetCookie.js
+B站获取Cookie(网页) = type=http-request,pattern=^https:\/\/m.bilibili.com/$,script-path=https://raw.githubusercontent.com/KingsleyKing20/Assets/master/QuantumultX/Script/BiliBili-GetCookie.js
 
 [MITM] 
 hostname= app.bilibili.com, m.bilibili.com
@@ -40,11 +40,11 @@ QuantumultX 远程脚本配置:
 
 [task_local]
 # B站每日等级任务
-30 8 * * * https://raw.githubusercontent.com/ClydeTime/Quantumult/main/Script/Task/BiliBili.js, tag=B站每日等级任务, img-url=https://raw.githubusercontent.com/HuiDoY/Icon/main/mini/Color/bilibili.png, enabled=true
+30 8 * * * https://raw.githubusercontent.com/KingsleyKing20/Assets/master/QuantumultX/Script/BiliBili-GetCookie.js, tag=B站每日等级任务, img-url=https://raw.githubusercontent.com/HuiDoY/Icon/main/mini/Color/bilibili.png, enabled=true
 
 [rewrite_remote]
 # B站获取Cookie(支持两种方式)
-https://raw.githubusercontent.com/ClydeTime/Quantumult/main/Task/Remote_Cookie.conf, tag=自用签到cookie, update-interval=172800, opt-parser=false, enabled=false
+https://raw.githubusercontent.com/KingsleyKing20/Assets/master/QuantumultX/Script/BiliBili-GetCookie.js, tag=自用签到cookie, update-interval=172800, opt-parser=false, enabled=false
 
 [mitm]
 hostname = app.bilibili.com, m.bilibili.com
