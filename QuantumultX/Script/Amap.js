@@ -21,12 +21,12 @@ host, amdc.m.taobao.com, reject
 
 # ～ 高德地图净化
 ^https?:\/\/.*\.amap\.com\/ws\/boss\/order\/car\/access_guide url reject-dict
-^https?:\/\/.*\.amap\.com\/ws\/faas\/amap-navigation\/main-page url script-response-body https://raw.githubusercontent.com/KingsleyKing20/Assets/master/QuantumultX/Script/amap.js
+^https?:\/\/.*\.amap\.com\/ws\/faas\/amap-navigation\/main-page url script-response-body https://raw.githubusercontent.com/KingsleyKing20/Assets/master/QuantumultX/Script/Amap.js
 ^https?:\/\/.*\.amap\.com\/ws\/asa\/ads_attribution url reject
-^https?:\/\/.*\.amap\.com\/ws\/valueadded\/alimama\/splash_screen url script-response-body https://raw.githubusercontent.com/KingsleyKing20/Assets/master/QuantumultX/Script/amap.js
-^https?:\/\/.*\.amap\.com\/ws\/msgbox\/pull url script-response-body https://raw.githubusercontent.com/KingsleyKing20/Assets/master/QuantumultX/Script/amap.js
-^https?:\/\/.*\.amap\.com\/ws\/shield\/dsp\/profile\/index\/nodefaas url script-response-body https://raw.githubusercontent.com/KingsleyKing20/Assets/master/QuantumultX/Script/amap.js
-^https?:\/\/.*\.amap\.com\/ws\/shield\/search\/new_hotword url script-response-body https://raw.githubusercontent.com/KingsleyKing20/Assets/master/QuantumultX/Script/amap.js
+^https?:\/\/.*\.amap\.com\/ws\/valueadded\/alimama\/splash_screen url script-response-body https://raw.githubusercontent.com/KingsleyKing20/Assets/master/QuantumultX/Script/Amap.js
+^https?:\/\/.*\.amap\.com\/ws\/msgbox\/pull url script-response-body https://raw.githubusercontent.com/KingsleyKing20/Assets/master/QuantumultX/Script/Amap.js
+^https?:\/\/.*\.amap\.com\/ws\/shield\/dsp\/profile\/index\/nodefaas url script-response-body https://raw.githubusercontent.com/KingsleyKing20/Assets/master/QuantumultX/Script/Amap.js
+^https?:\/\/.*\.amap\.com\/ws\/shield\/search\/new_hotword url script-response-body https://raw.githubusercontent.com/KingsleyKing20/Assets/master/QuantumultX/Script/Amap.js
 ^https?:\/\/.*\.amap\.com\/ws\/shield\/scene\/recommend url reject-dict
 ^https?:\/\/.*\.amap\.com\/uploadimg\/\w+\.gif url reject-img
 
