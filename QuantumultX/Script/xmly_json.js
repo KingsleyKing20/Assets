@@ -1,9 +1,10 @@
 /*
-v0.0.21
-2022-08-20
+v0.0.25
+2022-12-31
+请更新喜马拉雅至最新版
 */
 const scriptName = "XiMaLaYa";
-const author = "KingsleyKing";
+const author = "K";
 let magicJS = MagicJS(scriptName, "INFO");
 
 (() => {
@@ -11,7 +12,7 @@ let magicJS = MagicJS(scriptName, "INFO");
   if (magicJS.isResponse) {
     switch (true) {
     // discovery-category
-      case /discovery-category\/v5\/category/.test(magicJS.request.url):
+      case /discovery-category\/v\d\/category/.test(magicJS.request.url):
         try {
 			let obj = JSON.parse(magicJS.response.body);
 			if(obj.focusImages&&obj.focusImages.data){
@@ -22,22 +23,43 @@ let magicJS = MagicJS(scriptName, "INFO");
 			magicJS.logError(`discovery-category：${err}`);
         }
         break;
+		//focus-mobile-user
+		case /focus-mobile\/focusPic/.test(magicJS.request.url):
+        try {
+			let obj = JSON.parse(magicJS.response.body);
+			if(obj.header&&obj.header.length<=1){
+				obj.header[0].item.list[0].data = obj.header[0].item.list[0].data.filter((i) => (!(i.realLink.indexOf("open")==-1)&&!i.isAd));
+			}
+			body = JSON.stringify(obj);
+		}
+		catch (err) {
+          magicJS.logError(`discovery-feed：${err}`);
+        }
+        break;
 	// discovery-feed
-      case /discovery-feed\/v3\/mix/.test(magicJS.request.url):
+      case /discovery-feed\/v\d\/mix/.test(magicJS.request.url):
         try {
 		let obj = JSON.parse(magicJS.response.body);
-		if(obj.header&&obj.header.length>=1){
-			obj.header[0].item.list[0].data = obj.header[0].item.list[0].data.filter((i) => (!(i.realLink.indexOf("open")==-1)&&!i.isAd));
-		}
-		const tabList = new Set([1001,1009,1013,1015,100000]);
+		
+		const tabList = new Set([1001,1005,1009,1013,1015,1022,100000]);
 		if(obj.header&&obj.header.length>=2){
 			obj.header[1].item.list= obj.header[1].item.list.filter((e) => {
               		return tabList.has(e.id);
-            	});
-		for(let k=0; k < obj.header[1].item.list.length; k++){
-			obj.header[1].item.list[k].displayClass="one_line";
+            });
+			for(let k=0; k < obj.header[1].item.list.length; k++){
+				obj.header[1].item.list[k].displayClass="one_line";
+			}
+			delete obj.header[0];
+		}
+		else if(obj.header&&obj.header.length<=1){
+			obj.header[0].item.list= obj.header[0].item.list.filter((e) => {
+              		return tabList.has(e.id);
+            });
+			for(let k=0; k < obj.header[0].item.list.length; k++){
+				obj.header[0].item.list[k].displayClass="one_line";
 			}
 		}
+		
 		obj.body = obj.body.filter((i) => (i.item.playsCounts>1000000&&!i.item.adInfo));
 		
 		body = JSON.stringify(obj);
@@ -46,7 +68,7 @@ let magicJS = MagicJS(scriptName, "INFO");
         }
         break;
 	// mobile-user
-      case /mobile-user\/v2\/homePage/.test(magicJS.request.url):
+      case /mobile-user\/v\d\/homePage/.test(magicJS.request.url):
         try {
 			
 		const tabList = new Set([210,213,215]);
