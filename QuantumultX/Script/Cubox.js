@@ -13,6 +13,7 @@
 
 ^https:\/\/cubox\.pro\/c\/api\/userInfo url script-response-body https://raw.githubusercontent.com/KingsleyKing20/Assets/master/QuantumultX/Script/Cubox.js
 
+
 [mitm] 
 
 hostname = cubox.pro
