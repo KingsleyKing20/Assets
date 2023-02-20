@@ -18,7 +18,6 @@ hostname = *1*1*,27.148*,mqtt.zhihu.com,183.204*,122.224.*,web-er.zhihu.com,60.1
 
 ^http[s]?:\/\/api\.zhihu\.com\/commercial_api\/launch_v2 url reject-dict
 ^http[s]?:\/\/api\.zhihu\.com\/commercial_api\/real_time_launch_v2 url reject-dict
-
 ^http[s]?:\/\/.*zhihu\.(com|cn)\/(appview\/v2\/answer|remix-web\/paid_columns|km_player\/album|market\/paid_column|appview\/p|api\/v3\/books|books|market\/paid_magazine).*$ url script-request-header https://raw.githubusercontent.com/KingsleyKing20/Assets/master/QuantumultX/Script/zhih-shukan.js
 ***************************************/
 
