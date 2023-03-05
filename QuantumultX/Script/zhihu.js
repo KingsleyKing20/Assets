@@ -6,15 +6,6 @@ const blackAnswersIdKey = "zhihu_black_answers";
 const userCreditScore = "zhihu_credit_score";
 
 
-function getUrlParamValue(url, queryName) {
-  return Object.fromEntries(
-    url
-      .substring(url.indexOf("?") + 1)
-      .split("&")
-      .map((pair) => pair.split("="))
-  )[queryName];
-}
-
 // 默认屏蔽推荐列表的用户，通常不是真实用户，无法通过加入黑名单屏蔽
 const defaultAnswerBlockedUsers = ["会员推荐", "盐选推荐"];
 const keywordMaxCount = 1000; // 允许设置的关键词数量
