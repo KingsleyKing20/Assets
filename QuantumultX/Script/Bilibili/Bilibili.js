@@ -44,6 +44,13 @@ if (!$response.body) {
             name: "动画",
             uri: "bilibili://pgc/home",
             pos: 4
+          },
+          {
+            id: 33,
+            tab_id: "bangumi",
+            name: "直播",
+            uri: "bilibili://live/home",
+            pos: 5
           }
         ];
       }
